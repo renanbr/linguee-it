@@ -1,0 +1,25 @@
+{
+
+  "manifest_version": 2,
+  "name": "Linguee it!",
+  "version": "0.1",
+
+  "description": "Show selected text into the linguee website.",
+  "homepage_url": "https://github.com/renanbr/linguee-it",
+  "icons": {
+    "48": "icons/linguee-48.png",
+    "96": "icons/linguee-96.png"
+  },
+
+  "permissions": ["activeTab"],
+
+  "browser_action": {
+    "default_icon": "icons/linguee-32.png",
+    "default_title": "Linguee it!"
+  },
+
+  "background": {
+    "scripts": ["main.js"]
+  }
+
+}
