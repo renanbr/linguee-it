@@ -1,0 +1,24 @@
+body, html {
+    width: 320px;
+    height: 480px;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+/* http://stackoverflow.com/a/21054427 */
+#outer {
+    max-width: 320px;
+    max-height: 480px;
+    width: 100%;
+    height: 100%;
+}
+#inner {
+    height: 0;
+    padding-bottom: 150%; // height / width
+}
+#inner iframe {
+    width: 320px;
+    height: 480px;
+    border: 0;
+}

@@ -2,24 +2,23 @@
 
   "manifest_version": 2,
   "name": "Linguee it!",
-  "version": "0.1",
+  "version": "0.2",
 
-  "description": "Show selected text into the linguee website.",
+  "description": "Displays words and sentences translation using Linguee™.",
   "homepage_url": "https://github.com/renanbr/linguee-it",
   "icons": {
     "48": "icons/linguee-48.png",
     "96": "icons/linguee-96.png"
   },
 
-  "permissions": ["activeTab"],
+  "permissions": [
+    "activeTab"
+  ],
 
   "browser_action": {
     "default_icon": "icons/linguee-32.png",
-    "default_title": "Linguee it!"
-  },
-
-  "background": {
-    "scripts": ["main.js"]
+    "default_title": "Linguee it!",
+    "default_popup": "popup/index.html"
   }
 
 }
