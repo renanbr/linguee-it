@@ -15,7 +15,7 @@ body, html {
 }
 #inner {
     height: 0;
-    padding-bottom: 150%; // height / width
+    padding-bottom: 150%; /* height / width */
 }
 #inner iframe {
     width: 320px;
