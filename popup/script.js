@@ -8,22 +8,29 @@ window.onload = function () {
         { code : "[window.getSelection().toString(),document.documentElement.lang]" },
 
         function (data) {
-            // verify selected text content
+            var userLang = browser.i18n.getUILanguage().substring(0, 2).toUpperCase();
             var text = data[0];
             if (!text) {
-                // @todo give a feedback
-                return;
+                // when no text is selected
+                // open welcome page
+                var url = pairUrl[userLang + "-EN"];
+                if (!url) {
+                    // @todo give a feedback
+                    url = "http://www.linguee.com";
+                } else {
+                    url = url.substring(0, url.lastIndexOf("/"));
+                }
+            } else {
+                // when a text is selected
+                // build URL with translation result
+                var textLang = data[1].substring(0, 2).toUpperCase();
+                var url = pairUrl[textLang + "-" + userLang];
+                if (!url) {
+                    // @todo give a feedback
+                    url = "http://www.linguee.com";
+                }
+                url = url + "/search?source=auto&query=" + text;
             }
-
-            // build URL
-            var origin = data[1].substring(0, 2).toUpperCase();
-            var target = browser.i18n.getUILanguage().substring(0, 2).toUpperCase();
-            var url = pairUrl[origin + "-" + target];
-            if (!url) {
-                // @todo give a feedback
-                url = "http://www.linguee.com";
-            }
-            url = url + "/search?source=auto&query=" + text;
 
             // inject iframe
             var result = document.createElement('iframe');
