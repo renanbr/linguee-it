@@ -32,13 +32,11 @@ window.onload = function () {
                 url = url + "/search?source=auto&query=" + text;
             }
 
-            // inject iframe
-            var result = document.createElement('iframe');
-            result.src = url;
-            document.getElementById("inner").appendChild(result);
+            // update iframe
+            document.querySelector('iframe').setAttribute('src', url);
         }
     );
-}
+};
 
 var pairUrl = {
     'EN-DE': 'https://linguee.com/english-german',
