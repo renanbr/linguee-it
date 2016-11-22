@@ -5,11 +5,18 @@ window.onload = function () {
         null,
 
         // send to the next funcion the selected text and the website lang
-        { code : "[window.getSelection().toString(),document.documentElement.lang]" },
+        { code: 'var result = { "text" : window.getSelection().toString(), "lang" : document.documentElement.lang }; result' },
 
         function (data) {
+            // Keep compatibility to FF version <= 49
+            // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs/executeScript#Compatibility_notes
+            if (Object.prototype.toString.call(data) !== '[object Array]') {
+                data = data[data];
+            }
+
+            var text = data[0].text;
+            var textLang = data[0].lang;
             var userLang = browser.i18n.getUILanguage().substring(0, 2).toUpperCase();
-            var text = data[0];
             if (!text) {
                 // when no text is selected
                 // open welcome page
@@ -23,7 +30,7 @@ window.onload = function () {
             } else {
                 // when a text is selected
                 // build URL with translation result
-                var textLang = data[1].substring(0, 2).toUpperCase();
+                var textLang = textLang.substring(0, 2).toUpperCase();
                 var url = pairUrl[textLang + "-" + userLang];
                 if (!url) {
                     // @todo give a feedback
