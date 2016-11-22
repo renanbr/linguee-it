@@ -1,13 +1,14 @@
-
-window.onload = function () {
+window.onload = function() {
     chrome.tabs.executeScript(
-        // run under active tab
+        // Run under active tab
         null,
 
-        // send to the next funcion the selected text and the website lang
-        { code: 'var result = { "text" : window.getSelection().toString(), "lang" : document.documentElement.lang }; result' },
+        // Send to the next funcion the selected text and the website lang
+        {
+            code: 'var result = { "text" : window.getSelection().toString(), "lang" : document.documentElement.lang }; result'
+        },
 
-        function (data) {
+        function(data) {
             // Keep compatibility to FF version <= 49
             // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/tabs/executeScript#Compatibility_notes
             if (Object.prototype.toString.call(data) !== '[object Array]') {
@@ -15,31 +16,26 @@ window.onload = function () {
             }
 
             var text = data[0].text;
-            var textLang = data[0].lang;
+            var textLang = data[0].lang.substring(0, 2).toUpperCase();
             var userLang = browser.i18n.getUILanguage().substring(0, 2).toUpperCase();
+            var url = "http://app.linguee.com";
+            var urlPaired = null;
+
             if (!text) {
-                // when no text is selected
-                // open welcome page
-                var url = pairUrl[userLang + "-EN"];
-                if (!url) {
-                    // @todo give a feedback
-                    url = "http://app.linguee.com";
-                } else {
-                    url = url.substring(0, url.lastIndexOf("/"));
+                // When no text is selected, open welcome page
+                urlPaired = pairUrl[userLang + "-EN"];
+                if (urlPaired) {
+                    url = urlPaired.substring(0, urlPaired.lastIndexOf("/"));
                 }
             } else {
-                // when a text is selected
-                // build URL with translation result
-                var textLang = textLang.substring(0, 2).toUpperCase();
-                var url = pairUrl[textLang + "-" + userLang];
-                if (!url) {
-                    // @todo give a feedback
-                    url = "http://app.linguee.com";
+                // When a text is selected, build URL with translation result
+                urlPaired = pairUrl[textLang + "-" + userLang];
+                if (urlPaired) {
+                    url = urlPaired + "/search?source=auto&query=" + text;
                 }
-                url = url + "/search?source=auto&query=" + text;
             }
 
-            // update iframe
+            // Update iframe
             document.querySelector('iframe').setAttribute('src', url);
         }
     );
