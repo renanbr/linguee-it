@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "Linguee it!",
-  "version": "0.2",
+  "version": "0.3.1",
 
   "description": "Displays words and sentences translation using Linguee™.",
   "homepage_url": "https://github.com/renanbr/linguee-it",
