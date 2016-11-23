@@ -12,7 +12,7 @@ A firefox extension that displays words and sentences translation using [Linguee
 
 ## Changelog
 
-### 0.3.0
+### 0.3.1
 
 - Better layout;
 - Support for Firefox 50.0.
